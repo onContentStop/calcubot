@@ -1,0 +1,15 @@
+?start: expr
+?expr: sum
+?sum: product (ADD_SUB expr)?
+?product: power (MUL_DIV expr)?
+?power: unary ("^" power)?
+?unary: ADD_SUB? value
+?value: NUMBER | function_call | "(" expr ")"
+function_call: IDENT "(" expr ("," expr)* ")"
+
+ADD_SUB: "+" | "-"
+MUL_DIV: "*" | "/" | "%"
+NUMBER: ("0".."9")+("."("0".."9")+)?("e" ("0".."9")+)?
+IDENT: ("a".."z" | "_")+
+%import common.WS
+%ignore WS
